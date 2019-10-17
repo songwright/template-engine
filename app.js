@@ -158,7 +158,6 @@ function intern() {
       let newIntern = new Intern(intern.intName, intern.intID, intern.intEmail, intern.school);
       let html = makeIntHTML.makeIntHTML(newIntern);
       pageTop += html;
-      console.log(pageTop);
       confirm("Continue adding team members?")
         .then(function confirmed() {
           team();
@@ -180,7 +179,6 @@ function engineer() {
       let newEngineer = new Engineer(engineer.engName, engineer.engID, engineer.engEmail, engineer.github);
       let html = makeEngHTML.makeEngHTML(newEngineer);
       pageTop += html;
-      console.log(pageTop);
       confirm("Continue adding team members?")
         .then(function confirmed() {
           team();
@@ -213,7 +211,6 @@ inquirer
       manager.mgrEmail, manager.office);
       let html = makeMgrHTML.makeMgrHTML(newManager);
       pageTop += html;
-      console.log(pageTop);
       team();
   })
   .catch(function(error) {
