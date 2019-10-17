@@ -177,7 +177,8 @@ function engineer() {
     .then(engineer => {
       let newEngineer = new Engineer(engineer.engName, engineer.engID, engineer.engEmail, engineer.github);
       let html = makeEngHTML.makeEngHTML(newEngineer);
-      console.log(html);
+      pageTop += html;
+      console.log(pageTop);
       confirm("Continue adding team members?")
         .then(function confirmed() {
           team();
