@@ -1,5 +1,6 @@
 const inquirer = require("inquirer");
 const Manager = require("../Develop/lib/Manager");
+const makeHTML = require("../Develop/lib/makeHTML");
 
 const questions = [
   {
@@ -29,5 +30,10 @@ inquirer
   .then(answers => {
     let manager1 = new Manager(answers.mgrName, answers.mgrID,
       answers.mngEmail, answers.mgrOffice);
-      console.log(manager1);
-    })
+      let html = makeHTML.makeHTML(manager1);
+      console.log(html);
+  })
+  .catch(function(error) {
+    console.log(error);
+  })
+
