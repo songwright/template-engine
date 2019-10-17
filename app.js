@@ -5,29 +5,29 @@ const questions = [
   {
     type: "input",
     message: "To create a new team, enter the manager's name.",
-    name: "managerName"
+    name: "mgrName"
   },
   {
     type: "input",
     message: "Enter the manager's id.",
-    name: "managerID"
+    name: "mgrID"
   },
   {
     type: "input",
     message: "Enter the manager's e-mail address.",
-    name: "managerEmail"
+    name: "mngEmail"
   },
   {
     type: "input",
     message: "Enter the manager's office number.",
-    name: "managerOffice"
+    name: "mgrOffice"
   }
 ]
 
 inquirer
   .prompt(questions)
   .then(answers => {
-    let manager1 = new Manager(answers.managerName, answers.managerID,
-      answers.managerEmail, answers.managerOffice);
+    let manager1 = new Manager(answers.mgrName, answers.mgrID,
+      answers.mngEmail, answers.mgrOffice);
       console.log(manager1);
     })
