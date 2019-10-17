@@ -8,6 +8,46 @@ const makeMgrHTML = require("./lib/makeMgrHTML");
 const makeIntHTML = require("./lib/makeIntHTML");
 const makeEngHTML = require("./lib/makeEngHTML");
 
+// Variables
+let pageHTML = '';
+let pageTop = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+  <title>My Team</title>
+  <style>
+    *{
+      box-sizing: border-box;
+    }
+    .card-body {
+      background-color: #eee;
+    }
+    .jumbotron {
+      background-color: red;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header class="jumbotron">
+    <h1>My Team</h1>
+  </header>
+  <div class="card-deck" id="team-deck">
+    <!-- Cards go here. -->
+`;
+const pageBottom = `
+  </div>
+</body>
+</html>
+`;
+
 // Inquirer questions //
 // Manager
 const mgrQuestions = [
@@ -93,6 +133,7 @@ const engQuestions = [
 
 // Function definitions //
 
+// Ask: Intern or engineer?
 function team() {
   inquirer
     .prompt(teamQuestions)
@@ -108,13 +149,15 @@ function team() {
     })
 }
 
+// Make an intern
 function intern() {
   inquirer
     .prompt(intQuestions)
     .then(intern => {
       let newIntern = new Intern(intern.intName, intern.intID, intern.intEmail, intern.school);
       let html = makeIntHTML.makeIntHTML(newIntern);
-      console.log(html);
+      pageTop += html;
+      console.log(pageTop);
       confirm("Continue adding team members?")
         .then(function confirmed() {
           team();
@@ -127,6 +170,7 @@ function intern() {
     })
 }
 
+// Make an engineer
 function engineer() {
   inquirer
     .prompt(engQuestions)
@@ -146,6 +190,17 @@ function engineer() {
     })
 }
 
+// Render the team page
+function renderPage(fileName, data) {
+
+  fs.writeFile("../Develop/output/output.html", pageHTML, function(err) {
+    if (err) {
+      return console.log(err)
+    }
+    console.log("Team page rendered");
+  })
+}
+
 // Begin creating the team
 inquirer
   .prompt(mgrQuestions)
@@ -153,7 +208,8 @@ inquirer
     let newManager = new Manager(manager.mgrName, manager.mgrID,
       manager.mgrEmail, manager.office);
       let html = makeMgrHTML.makeMgrHTML(newManager);
-      console.log(html);
+      pageTop += html;
+      console.log(pageTop);
       team();
   })
   .catch(function(error) {
