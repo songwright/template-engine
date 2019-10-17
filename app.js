@@ -7,6 +7,7 @@ const Engineer = require("../Develop/lib/Engineer");
 const makeMgrHTML = require("./lib/makeMgrHTML");
 const makeIntHTML = require("./lib/makeIntHTML");
 const makeEngHTML = require("./lib/makeEngHTML");
+const fs = require("fs");
 
 // Variables
 let pageHTML = '';
@@ -162,6 +163,7 @@ function intern() {
         .then(function confirmed() {
           team();
         }, function cancelled() {
+          renderPage();
           console.log("Team completed.");
         });
     })
@@ -183,6 +185,7 @@ function engineer() {
         .then(function confirmed() {
           team();
         }, function cancelled() {
+          renderPage();
           console.log("Team completed.");
         });
     })
@@ -193,7 +196,7 @@ function engineer() {
 
 // Render the team page
 function renderPage(fileName, data) {
-
+  pageHTML = pageTop + pageBottom;
   fs.writeFile("../Develop/output/output.html", pageHTML, function(err) {
     if (err) {
       return console.log(err)
